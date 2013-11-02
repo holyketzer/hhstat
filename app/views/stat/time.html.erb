@@ -1,0 +1,23 @@
+<h1>Stat#time</h1>
+<p>Find me in app/views/stat/time.html.erb</p>
+
+<div>
+  <canvas id="currentYearTimeChart"></canvas>
+</div>
+
+<%= javascript_tag do %>
+  var data = {
+		labels : [<%= @months.html_safe %>],
+		datasets : [
+			{
+				fillColor : "rgba(220,220,220,0.5)",
+				strokeColor : "rgba(220,220,220,1)",
+				data : [<%= @values %>]
+			}
+		]
+	}
+	var ctx = $("#currentYearTimeChart").get(0).getContext("2d")
+	ctx.canvas.width  = window.innerWidth - 200;
+	ctx.canvas.height = window.innerHeight;
+	var chart = new Chart(ctx).Bar(data);
+<% end %>

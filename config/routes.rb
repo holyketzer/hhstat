@@ -1,4 +1,5 @@
 Hhstat::Application.routes.draw do
+  get "stat/time"
   resources :vacancies do
     member do
       get 'parse'
