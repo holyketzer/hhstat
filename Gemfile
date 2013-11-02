@@ -33,6 +33,7 @@ group :doc do
 end
 
 gem 'rest-client'
+gem 'chartjs-rails'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'

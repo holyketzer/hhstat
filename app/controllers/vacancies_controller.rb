@@ -80,11 +80,12 @@ class VacanciesController < ApplicationController
   end
 
   def parse_all    
-    per_page = 100
+    per_page = 10
     page = 0
     query = "https://api.hh.ru/vacancies?specialization=1.221&per_page=#{per_page}&page=%s"
     require 'rest_client'
-    while page < 2
+    while true
+      logger.info ">> try to get #{query % page}"
       response = RestClient.get query % page
       if response.code == 200
         arr = JSON.parse(response.to_s)
@@ -97,10 +98,12 @@ class VacanciesController < ApplicationController
           end
         end
         page += 1
-        break if page > arr["pages"].to_i
+        logger.info ">> total pages count = #{arr["pages"].to_i}"
+        break if page >= arr["pages"].to_i
       else
         logger.error "error on get request"
-      end 
+      end
+      sleep 5 
     end
     redirect_to vacancies_path
   end
