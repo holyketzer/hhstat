@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Salary from:</strong>
+  <%= @vacancy.salary_from %>
+</p>
+
+<p>
+  <strong>Salary to:</strong>
+  <%= @vacancy.salary_to %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @vacancy.name %>
+</p>
+
+<p>
+  <strong>Area:</strong>
+  <%= @vacancy.area_id %>
+</p>
+
+<p>
+  <strong>Created:</strong>
+  <%= @vacancy.created %>
+</p>
+
+<p>
+  <strong>Employer:</strong>
+  <%= @vacancy.employer_id %>
+</p>
+
+<%= link_to 'Edit', edit_vacancy_path(@vacancy) %> |
+<%= link_to 'Back', vacancies_path %>

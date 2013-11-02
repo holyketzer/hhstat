@@ -1,9 +1,26 @@
 Hhstat::Application.routes.draw do
+  resources :vacancies do
+    member do
+      get 'parse'
+    end
+    collection do
+      get 'parse_all'
+    end
+  end
+
+  resources :welcomes
+
+  resources :currencies do
+    collection do
+      get 'parse'
+    end
+  end
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  # root 'welcome#index'
+  root 'welcomes#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

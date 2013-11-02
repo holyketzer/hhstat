@@ -1,0 +1,37 @@
+<h1>Listing vacancies</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Salary from</th>
+      <th>Salary to</th>
+      <th>Name</th>
+      <th>Area</th>
+      <th>Created</th>
+      <th>Employer</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @vacancies.each do |vacancy| %>
+      <tr>
+        <td><%= vacancy.salary_from %></td>
+        <td><%= vacancy.salary_to %></td>
+        <td><%= vacancy.name %></td>
+        <td><%= vacancy.area_id %></td>
+        <td><%= vacancy.created %></td>
+        <td><%= vacancy.employer_id %></td>
+        <td><%= link_to 'Show', vacancy %></td>
+        <td><%= link_to 'Edit', edit_vacancy_path(vacancy) %></td>
+        <td><%= link_to 'Destroy', vacancy, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Vacancy', new_vacancy_path %>
