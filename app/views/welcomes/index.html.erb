@@ -12,7 +12,7 @@
   <tbody>
     <%= link_to "Vacancy count by month", :controller => "stat", :action => "time", :year => Date.today.year %>
     <br />
-    
+    <%= link_to "Salary distribution", :controller => "stat", :action => "distrib", :year => Date.today.year %>
     <br/>
   </tbody>
 </table>

@@ -12,6 +12,16 @@ class StatController < ApplicationController
 	@years = Vacancy.years
   end
 
+  def distrib
+  	@year = params[:year].to_i || Date.today.year
+  	data = salary_distrib(@year)
+  	if data.any?
+  		@salaries = '"' + data.map { |a| a[0].to_s }.inject { |s,a| s + '", "' + a } + '"'
+		@values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
+  	end
+  	@years = Vacancy.years
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params

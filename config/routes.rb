@@ -1,5 +1,6 @@
 Hhstat::Application.routes.draw do
   get "stat/time/:year", to: 'stat#time'
+  get "stat/distrib/:year", to: 'stat#distrib'
   resources :vacancies do
     member do
       get 'parse'
