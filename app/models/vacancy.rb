@@ -12,6 +12,10 @@ class Vacancy < ActiveRecord::Base
   }
   scope :current_month, -> { in_month(Date.today.month) }
 
+  def self.years
+    Vacancy.minimum("created").year..Vacancy.maximum("created").year
+  end
+
   def self.parse(json)    
 
     vacancy = Vacancy.find_by_id(json['id']) || Vacancy.new

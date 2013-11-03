@@ -1,4 +1,4 @@
-<h1>Listing welcomes</h1>
+<h1>Weclome to hhstat</h1>
 
 <table>
   <thead>
@@ -10,13 +10,10 @@
   </thead>
 
   <tbody>
-    <%= link_to 'Parse currencies', parse_currencies_path %>
+    <%= link_to "Vacancy count by month", :controller => "stat", :action => "time", :year => Date.today.year %>
     <br />
-    <%= link_to 'Parse all vacancies', parse_all_vacancies_path %>
+    
     <br/>
-    <div>
-      <canvas id="myChart"></canvas>
-    </div>
   </tbody>
 </table>
 

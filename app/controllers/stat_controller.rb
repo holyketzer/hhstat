@@ -2,8 +2,19 @@ class StatController < ApplicationController
   include StatHelper
 
   def time
-  	data = current_year_by_month
-  	@months = '"' + data.map { |a| Date::MONTHNAMES[a[0].month] }.inject { |s,a| s + '", "' + a } + '"'
-	@values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
+  	@year = params[:year].to_i || Date.today.year
+  	logger.info @year
+  	data = year_by_month(@year)
+  	if data.any?
+  		@months = '"' + data.map { |a| Date::MONTHNAMES[a[0].month] }.inject { |s,a| s + '", "' + a } + '"'
+		@values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
+	end
+	@years = Vacancy.years
   end
+
+  private
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def vacancy_params
+      params.permit(:year)
+    end
 end
