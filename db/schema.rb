@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20131102082109) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "currencies", force: true do |t|
     t.string   "code"
     t.string   "name"

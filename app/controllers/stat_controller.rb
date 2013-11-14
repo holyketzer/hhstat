@@ -17,9 +17,17 @@ class StatController < ApplicationController
   	data = salary_distrib(@year)
   	if data.any?
   		@salaries = '"' + data.map { |a| a[0].to_s }.inject { |s,a| s + '", "' + a } + '"'
-		@values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
+		  @values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
   	end
   	@years = Vacancy.years
+  end
+
+  def count_by_year
+    data = get_count_by_year
+    if data.any?
+      @count = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
+      @years = data.map { |a| a.year.to_i }.inject { |s,a| "#{s}, #{a}"}
+    end
   end
 
   private
