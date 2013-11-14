@@ -2,6 +2,7 @@ Hhstat::Application.routes.draw do
   get "stat/time/:year", to: 'stat#time'
   get "stat/distrib/:year", to: 'stat#distrib'
   get "vacancy_count_by_year", to: 'stat#count_by_year'
+  get "vacancy_count_by_month", to: 'stat#count_by_month'
   resources :vacancies do
     member do
       get 'parse'

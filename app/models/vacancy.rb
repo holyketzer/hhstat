@@ -1,15 +1,9 @@
 class Vacancy < ActiveRecord::Base
-  scope :in_year, ->(year) do
-    y = DateTime.new(year)
-    where("created >= ? and created < ?", y, y.next_year)
-  end
+  scope :in_year, ->(year) { where("date_part('year', created) = ?", year) }
   scope :current_year, -> { in_year(Date.today.year) }
   scope :prev_year, -> { in_year(Date.today.year-1) }
 
-  scope :in_month, ->(month) { 
-    m = Date.new(Date.today.year, month)
-    where("created >= ? and created < ?", m, m.next_month)
-  }
+  scope :in_month, ->(month) { where("date_part('month', created) = ?", month) }
   scope :current_month, -> { in_month(Date.today.month) }
 
   def self.years

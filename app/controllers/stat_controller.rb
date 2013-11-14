@@ -7,9 +7,9 @@ class StatController < ApplicationController
   	data = year_by_month(@year)
   	if data.any?
   		@months = '"' + data.map { |a| Date::MONTHNAMES[a[0].month] }.inject { |s,a| s + '", "' + a } + '"'
-		@values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
-	end
-	@years = Vacancy.years
+		  @values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
+	  end
+	  @years = Vacancy.years
   end
 
   def distrib
@@ -27,6 +27,14 @@ class StatController < ApplicationController
     if data.any?
       @count = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
       @years = data.map { |a| a.year.to_i }.inject { |s,a| "#{s}, #{a}"}
+    end
+  end
+
+  def count_by_month
+    data = get_count_by_month
+    if data.any?
+      @count = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
+      @months = '"' + data.map { |a| Date::MONTHNAMES[a.month] }.inject { |s,a| s + '", "' + a } + '"'
     end
   end
 
