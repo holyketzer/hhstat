@@ -1,23 +1,30 @@
-<h1>Vacancy count per year</h1>
+<h1>Vacancy couny per month in <%= @year %></h1>
 
 <div>
-  <canvas id="allYearsTimeChart"></canvas>
+	<div>See another years</div>
+	<% @years.each do |year| %>
+		<%= link_to "#{year}", :controller => "stat", :action => "count_by_month_in", :year => year %>
+	<% end %>
 </div>
 
-<% if @count %>
+<div>
+  <canvas id="currentYearTimeChart"></canvas>
+</div>
+
+<% if @months %>
 	<% c = [151,87,205].shuffle! %>
 	<%= javascript_tag do %>
 	  var data = {
-			labels : [<%= @years %>],
+			labels : [<%= @months.html_safe %>],
 			datasets : [
 				{
 					fillColor : "rgba(<%= c[0] %>, <%= c[1] %>, <%= c[2] %>,0.5)",
 					strokeColor : "rgba(151,187,205,1)",
-					data : [<%= @count %>]
+					data : [<%= @values %>]
 				}
 			]
 		}
-		var ctx = $("#allYearsTimeChart").get(0).getContext("2d")
+		var ctx = $("#currentYearTimeChart").get(0).getContext("2d")
 		ctx.canvas.width  = window.innerWidth - 100;
 		ctx.canvas.height = window.innerHeight - 150;
 		var chart = new Chart(ctx).Bar(data);

@@ -19,7 +19,7 @@
 		}
 		var ctx = $("#allMonthsTimeChart").get(0).getContext("2d")
 		ctx.canvas.width  = window.innerWidth - 100;
-		ctx.canvas.height = window.innerHeight - 100;
+		ctx.canvas.height = window.innerHeight - 150;
 		var chart = new Chart(ctx).Bar(data);
 	<% end %>
 <% else %>

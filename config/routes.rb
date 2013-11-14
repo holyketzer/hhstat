@@ -1,5 +1,5 @@
 Hhstat::Application.routes.draw do
-  get "stat/time/:year", to: 'stat#time'
+  get "vacancy_count_by_month/:year", to: 'stat#count_by_month_in'
   get "stat/distrib/:year", to: 'stat#distrib'
   get "vacancy_count_by_year", to: 'stat#count_by_year'
   get "vacancy_count_by_month", to: 'stat#count_by_month'

@@ -1,13 +1,12 @@
 class StatController < ApplicationController
   include StatHelper
 
-  def time
+  def count_by_month_in
   	@year = params[:year].to_i || Date.today.year
-  	logger.info @year
-  	data = year_by_month(@year)
+  	data = get_count_by_month_in(@year)
   	if data.any?
-  		@months = '"' + data.map { |a| Date::MONTHNAMES[a[0].month] }.inject { |s,a| s + '", "' + a } + '"'
-		  @values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
+  		@months = '"' + data.map { |a| Date::MONTHNAMES[a.month] }.inject { |s,a| s + '", "' + a } + '"'
+		  @values = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
 	  end
 	  @years = Vacancy.years
   end
