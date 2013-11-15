@@ -1,8 +1,12 @@
 Hhstat::Application.routes.draw do
+  resources :specializations
+
   get "vacancy_count_by_month/:year", to: 'stat#count_by_month_in'
   get "salary_distribution_in/:year", to: 'stat#salary_distribution_in'
   get "vacancy_count_by_year", to: 'stat#count_by_year'
   get "vacancy_count_by_month", to: 'stat#count_by_month'
+  get "vacancy_count_by_specialization", to: 'stat#count_by_specialization'
+
   resources :vacancies do
     member do
       get 'parse'

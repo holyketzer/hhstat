@@ -1,10 +1,15 @@
 class Vacancy < ActiveRecord::Base
+  belongs_to :specialization
+
   scope :in_year, ->(year) { where("date_part('year', created) = ?", year) }
   scope :current_year, -> { in_year(Date.today.year) }
   scope :prev_year, -> { in_year(Date.today.year-1) }
 
   scope :in_month, ->(month) { where("date_part('month', created) = ?", month) }
   scope :current_month, -> { in_month(Date.today.month) }
+
+  scope :without_specialization, -> { where("specialization_id IS NULL") }
+  scope :with_specialization, -> { where("specialization_id IS NOT NULL") }
 
   def self.years
     Vacancy.minimum("created").year..Vacancy.maximum("created").year
@@ -56,6 +61,23 @@ class Vacancy < ActiveRecord::Base
       end
       id += 1
       #sleep 2
+    end
+  end
+
+  def self.classify_all
+    specs = Specialization.all
+    without_specialization.each do |vacancy|
+      logger.info "Finding spec for vacancy #{vacancy.id} #{vacancy.name}"
+      specs.each do |spec|
+        if spec.keywords_array.any? { |keyword| vacancy.name.downcase.include? keyword.downcase }
+          logger.info "Vacancy #{vacancy.id} #{vacancy.name} assigned with spec #{spec.name}"
+          vacancy.specialization = spec
+          if !vacancy.save
+            logger.error "error on save #{vacancy}"
+          end
+          break
+        end
+      end
     end
   end
 end

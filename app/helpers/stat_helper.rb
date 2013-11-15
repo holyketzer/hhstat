@@ -14,4 +14,8 @@ module StatHelper
 	def get_count_by_month
 		Vacancy.select("count(id),date_part('month',created) as month").group("date_part('month', created)")
 	end
+
+  def get_count_by_specialization
+    Vacancy.with_specialization.select("count(id),specialization_id").group("specialization_id").order("count(id) DESC")
+  end
 end

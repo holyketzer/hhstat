@@ -37,6 +37,14 @@ class StatController < ApplicationController
     end
   end
 
+  def count_by_specialization
+    data = get_count_by_specialization
+    if data.any?
+      @count = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
+      @specializations = '"' + data.map { |a| a.specialization.name }.inject { |s,a| s + '", "' + a } + '"'
+    end
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params

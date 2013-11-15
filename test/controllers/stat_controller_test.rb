@@ -21,4 +21,8 @@ class StatControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should get count by specialization" do
+    get :count_by_specialization
+    assert_response :success
+  end
 end
