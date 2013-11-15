@@ -5,6 +5,7 @@
     <tr>
       <th>Name</th>
       <th>Keywords</th>
+      <th>Priority</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,6 +17,7 @@
       <tr>
         <td><%= specialization.name %></td>
         <td><%= specialization.keywords %></td>
+        <td><%= specialization.priority %></td>
         <td><%= link_to 'Show', specialization %></td>
         <td><%= link_to 'Edit', edit_specialization_path(specialization) %></td>
         <td><%= link_to 'Destroy', specialization, method: :delete, data: { confirm: 'Are you sure?' } %></td>

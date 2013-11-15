@@ -4,7 +4,7 @@ class SpecializationsController < ApplicationController
   # GET /specializations
   # GET /specializations.json
   def index
-    @specializations = Specialization.all
+    @specializations = Specialization.sorted.all
   end
 
   # GET /specializations/1
@@ -69,6 +69,6 @@ class SpecializationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def specialization_params
-      params.require(:specialization).permit(:name, :keywords)
+      params.require(:specialization).permit(:name, :keywords, :priority)
     end
 end

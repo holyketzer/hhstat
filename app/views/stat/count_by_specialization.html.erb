@@ -18,7 +18,7 @@
       ]
     }
     var ctx = $("#allSpecializationsChart").get(0).getContext("2d")
-    ctx.canvas.width  = window.innerWidth - 100;
+    ctx.canvas.width  = window.innerWidth - 50;
     ctx.canvas.height = window.innerHeight - 150;
     var chart = new Chart(ctx).Bar(data);
   <% end %>
