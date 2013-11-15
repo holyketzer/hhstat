@@ -3,8 +3,8 @@ module StatHelper
 		Vacancy.in_year(year).select("count(id),date_part('month', created) as month").group("date_part('month', created)").order("date_part('month', created)")
 	end
 
-	def salary_distrib(year)
-		Vacancy.select("salary_to, salary_from").where("salary_to IS NOT NULL and salary_from IS NOT NULL").in_year(year).map {|v| ((v.salary_from + v.salary_to)/2).to_i.round(-4)}.group_by { |v| v }.map { |k,v| [k,v.size] }.sort_by { |v| v[0] }
+	def get_salary_distribution_in(year)
+		Vacancy.in_year(year).where("salary_to IS NOT NULL and salary_from IS NOT NULL").select("round((salary_to + salary_from)/2, -4) as salary, count(id)").group("round((salary_to + salary_from)/2, -4)").order("round((salary_to + salary_from)/2, -4)")
 	end
 
 	def get_count_by_year

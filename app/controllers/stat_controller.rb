@@ -11,12 +11,12 @@ class StatController < ApplicationController
 	  @years = Vacancy.years
   end
 
-  def distrib
+  def salary_distribution_in
   	@year = params[:year].to_i || Date.today.year
-  	data = salary_distrib(@year)
+  	data = get_salary_distribution_in(@year)
   	if data.any?
-  		@salaries = '"' + data.map { |a| a[0].to_s }.inject { |s,a| s + '", "' + a } + '"'
-		  @values = data.map { |a| a[1] }.inject { |s,a| "#{s}, #{a}" }
+  		@salaries = '"' + data.map { |a| a.salary.to_i.to_s }.inject { |s,a| s + '", "' + a } + '"'
+		  @values = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
   	end
   	@years = Vacancy.years
   end

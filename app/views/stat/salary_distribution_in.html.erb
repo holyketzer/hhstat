@@ -3,7 +3,7 @@
 	<div>
 		<div>See another years</div>
 		<% @years.each do |year| %>
-			<%= link_to "#{year}", :controller => "stat", :action => "distrib", :year => year %>
+			<%= link_to "#{year}", :controller => "stat", :action => "salary_distribution_in", :year => year %>
 		<% end %>
 	</div>
 
@@ -25,8 +25,8 @@
 				]
 			}
 			var ctx = $("#currentYearTimeChart").get(0).getContext("2d")
-			ctx.canvas.width  = window.innerWidth - 200;
-			ctx.canvas.height = window.innerHeight - 200;
+			ctx.canvas.width  = window.innerWidth - 100;
+			ctx.canvas.height = window.innerHeight - 150;
 			var chart = new Chart(ctx).Bar(data);
 		<% end %>
 	<% else %>
