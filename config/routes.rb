@@ -6,6 +6,7 @@ Hhstat::Application.routes.draw do
   get "vacancy_count_by_year", to: 'stat#count_by_year'
   get "vacancy_count_by_month", to: 'stat#count_by_month'
   get "vacancy_count_by_specialization", to: 'stat#count_by_specialization'
+  get "vacancy_count_by_class", to: 'stat#count_by_class'
 
   resources :vacancies do
     member do

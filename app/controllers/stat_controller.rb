@@ -45,6 +45,11 @@ class StatController < ApplicationController
     end
   end
 
+  def count_by_class
+    @count = [Vacancy.without_specialization.count, Vacancy.with_itdev_specialization.count, Vacancy.without_itdev_specialization.count]
+    @labels = ['Не определено', 'IT разработка', 'Не IT разработка']
+  end
+
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params

@@ -3,6 +3,10 @@ class Specialization < ActiveRecord::Base
 
   scope :sorted, -> { order("priority") }
 
+  def self.not_itdev_id
+    select(:id).find_by("priority < 0").id
+  end
+
   def keywords_array
     keywords.split(';')
   end

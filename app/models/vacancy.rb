@@ -10,6 +10,8 @@ class Vacancy < ActiveRecord::Base
 
   scope :without_specialization, -> { where("specialization_id IS NULL") }
   scope :with_specialization, -> { where("specialization_id IS NOT NULL") }
+  scope :with_itdev_specialization, -> { with_specialization.where("specialization_id != ?", Specialization.not_itdev_id) }
+  scope :without_itdev_specialization, -> { with_specialization.where("specialization_id = ?", Specialization.not_itdev_id) }
 
   def self.years
     Vacancy.minimum("created").year..Vacancy.maximum("created").year
@@ -69,7 +71,7 @@ class Vacancy < ActiveRecord::Base
     without_specialization.each do |vacancy|
       logger.info "Finding spec for vacancy #{vacancy.id} #{vacancy.name}"
       specs.each do |spec|
-        if spec.keywords_array.any? { |keyword| vacancy.name.downcase.include? keyword.downcase }
+        if spec.keywords_array.any? { |keyword| vacancy.name =~ Regexp.new(Regexp.quote(keyword), "i") }
           logger.info "Vacancy #{vacancy.id} #{vacancy.name} assigned with spec #{spec.name}"
           vacancy.specialization = spec
           if !vacancy.save

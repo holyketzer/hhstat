@@ -4,7 +4,7 @@ class SpecializationsController < ApplicationController
   # GET /specializations
   # GET /specializations.json
   def index
-    @specializations = Specialization.sorted.all
+    @specializations = Specialization.sorted
   end
 
   # GET /specializations/1
