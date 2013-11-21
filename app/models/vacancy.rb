@@ -68,7 +68,7 @@ class Vacancy < ActiveRecord::Base
 
   def self.classify_all
     specs = Specialization.sorted
-    without_specialization.each do |vacancy|
+    without_specialization.find_each(batch_size: 1000) do |vacancy|
       logger.info "Finding spec for vacancy #{vacancy.id} #{vacancy.name}"
       specs.each do |spec|
         if spec.keywords_array.any? { |keyword| vacancy.name =~ Regexp.new(Regexp.quote(keyword), "i") }
@@ -80,6 +80,6 @@ class Vacancy < ActiveRecord::Base
           break
         end
       end
-    end.take(1)
+    end
   end
 end
