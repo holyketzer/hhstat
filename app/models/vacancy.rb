@@ -66,6 +66,33 @@ class Vacancy < ActiveRecord::Base
     end
   end
 
+  def self.parse_latest
+    per_page = 50
+    page = 0
+    query = "https://api.hh.ru/vacancies?specialization=1.221&per_page=#{per_page}&page=%s"
+    require 'rest_client'
+    while true
+      logger.info ">> try to get #{query % page}"
+      response = RestClient.get query % page
+      if response.code == 200
+        arr = JSON.parse(response.to_s)
+        arr["items"].each do |data|
+          new_vacancy = Vacancy.parse(data)
+          if !new_vacancy.save                
+            logger.error "error on parse request"
+          end
+        end
+        page += 1
+        logger.info ">> total pages count = #{arr["pages"].to_i}"
+        break if page >= arr["pages"].to_i
+      else
+        logger.error "error on get request"
+      end
+      sleep 5 
+    end    
+    logger.info "sucessefully finished"
+  end
+
   def self.classify_all
     specs = Specialization.sorted
     without_specialization.find_each(batch_size: 1000) do |vacancy|

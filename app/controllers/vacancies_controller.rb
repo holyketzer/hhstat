@@ -4,7 +4,7 @@ class VacanciesController < ApplicationController
   # GET /vacancies
   # GET /vacancies.json
   def index
-    @vacancies = Vacancy.all
+    @vacancies = Vacancy.take(100)
   end
 
   # GET /vacancies/1
@@ -59,54 +59,7 @@ class VacanciesController < ApplicationController
       format.html { redirect_to vacancies_url }
       format.json { head :no_content }
     end
-  end
-
-  def parse
-    id = params[:id]
-
-    require 'rest_client'
-    response = RestClient.get "https://api.hh.ru/vacancies/#{id}"
-    if response.code == 200
-      data = JSON.parse(response.to_s)
-      new_vacancy = Vacancy.parse(data)
-      if new_vacancy.save                
-        redirect_to new_vacancy, notice: 'Vacancy was successfully created.'
-      else
-        render text: "Error parsing"
-      end
-    else
-      render text: "Error getting"
-    end
-  end
-
-  def parse_all    
-    per_page = 10
-    page = 0
-    query = "https://api.hh.ru/vacancies?specialization=1.221&per_page=#{per_page}&page=%s"
-    require 'rest_client'
-    while true
-      logger.info ">> try to get #{query % page}"
-      response = RestClient.get query % page
-      if response.code == 200
-        arr = JSON.parse(response.to_s)
-        arr["items"].each do |data|
-          new_vacancy = Vacancy.parse(data)
-          if new_vacancy.save                
-            #redirect_to new_vacancy, notice: 'Vacancy was successfully created.'
-          else
-            logger.error "error on parse request"
-          end
-        end
-        page += 1
-        logger.info ">> total pages count = #{arr["pages"].to_i}"
-        break if page >= arr["pages"].to_i
-      else
-        logger.error "error on get request"
-      end
-      sleep 5 
-    end
-    redirect_to vacancies_path
-  end
+  end  
 
   private
     # Use callbacks to share common setup or constraints between actions.
