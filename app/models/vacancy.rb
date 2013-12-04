@@ -1,3 +1,5 @@
+require 'rest_client'
+
 class Vacancy < ActiveRecord::Base
   belongs_to :specialization
 
@@ -33,44 +35,44 @@ class Vacancy < ActiveRecord::Base
     vacancy
   end
 
-  def self.isITVacancy(data)
+  def self.is_IT_vacancy(data)
     data["specializations"].any? { |spec| spec["id"] == "1.221" }
+  end 
+
+  def self.get_vacancy(id)    
+    query_get_vacancy = "https://api.hh.ru/vacancies/%s"
+    logger.info ">> try to get vacancy #{id}"    
+    begin      
+      response = RestClient.get query_get_vacancy % id
+      if response.code == 200
+        data = JSON.parse(response.to_s)
+        if is_IT_vacancy(data)
+          new_vacancy = Vacancy.parse(data)
+          new_vacancy.save                          
+        else
+          logger.info "#{id} is not IT vacancy"
+        end
+      else
+        logger.error "error on get request"
+      end
+    rescue
+      logger.error "query fall"
+    end
   end
 
-  def self.parse_all(start)
-    query = "https://api.hh.ru/vacancies/%s"
-    require 'rest_client'
-    id = start.to_i
+  def self.parse_all(from_id, to_id = nil)    
+    id = from_id.to_i
     while true
-      logger.info ">> try to get vacancy #{id}"
-      begin
-        response = RestClient.get query % id
-        if response.code == 200
-          data = JSON.parse(response.to_s)
-          if isITVacancy(data)
-            new_vacancy = Vacancy.parse(data)
-            if !new_vacancy.save                
-              logger.error "error on parse request"
-            end
-          else
-            logger.info "#{id} is not IT vacancy"
-          end
-        else
-          logger.error "error on get request"
-        end
-      rescue
-        logger.error "query fall"
-      end
+      get_vacancy(id)
       id += 1
-      #sleep 2
+      break if to_id and id > to_id.to_i
     end
   end
 
   def self.parse_latest
     per_page = 50
     page = 0
-    query = "https://api.hh.ru/vacancies?specialization=1.221&per_page=#{per_page}&page=%s"
-    require 'rest_client'
+    query = "https://api.hh.ru/vacancies?specialization=1.221&per_page=#{per_page}&page=%s"    
     while true
       logger.info ">> try to get #{query % page}"
       response = RestClient.get query % page
