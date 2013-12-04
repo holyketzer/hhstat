@@ -4,7 +4,7 @@ module StatHelper
 	end
 
 	def get_salary_distribution_in(year)
-		Vacancy.with_itdev_specialization.in_year(year).where("salary_to IS NOT NULL and salary_from IS NOT NULL").select("round((salary_to + salary_from)/2, -4) as salary, count(id)").group("round((salary_to + salary_from)/2, -4)").order("round((salary_to + salary_from)/2, -4)")
+		Vacancy.with_itdev_specialization.in_year(year).where("salary_to IS NOT NULL and salary_from IS NOT NULL and salary_from > 0 and salary_to > 0").select("round((salary_to + salary_from)/2, -4) as salary, count(id)").group("round((salary_to + salary_from)/2, -4)").order("round((salary_to + salary_from)/2, -4)")
 	end
 
 	def get_count_by_year
