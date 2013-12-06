@@ -70,7 +70,7 @@ class Vacancy < ActiveRecord::Base
   end
 
   def self.parse_latest
-    per_page = 50
+    per_page = 100
     page = 0
     query = "https://api.hh.ru/vacancies?specialization=1.221&per_page=#{per_page}&page=%s"    
     while true

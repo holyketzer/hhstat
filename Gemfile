@@ -46,5 +46,8 @@ gem 'highline', '1.6.19'
 # Use Capistrano for deployment
 gem 'rvm-capistrano', group: :development
 
+# Task sceduler
+gem 'whenever', :require => false
+
 # Use debugger
 # gem 'debugger', group: [:development, :test]

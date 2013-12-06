@@ -3,6 +3,8 @@
 
 require "bundler/capistrano"
 require 'rvm/capistrano'
+set :whenever_command, "bundle exec whenever"
+require "whenever/capistrano"
 
 set :application, "hhstat"
 set :repository,  "https://github.com/holyketzer/hhstat.git"
