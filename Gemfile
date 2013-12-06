@@ -42,7 +42,7 @@ gem 'chartjs-rails'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'rvm-capistrano', group: :development
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
