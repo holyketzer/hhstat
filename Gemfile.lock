@@ -130,6 +130,7 @@ PLATFORMS
 DEPENDENCIES
   chartjs-rails
   coffee-rails (~> 4.0.0)
+  highline (= 1.6.19)
   jbuilder (~> 1.2)
   jquery-rails
   pg

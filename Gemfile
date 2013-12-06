@@ -41,6 +41,8 @@ gem 'chartjs-rails'
 # Use unicorn as the app server
 # gem 'unicorn'
 
+gem 'highline', '1.6.19'
+
 # Use Capistrano for deployment
 gem 'rvm-capistrano', group: :development
 
