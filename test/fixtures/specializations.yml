@@ -6,6 +6,11 @@ one:
   priority: -1
 
 two:
+  name: pending_alghorithm_improvement_id
+  keywords: MyString
+  priority: -2
+
+three:
   name: MyString
   keywords: MyString
   priority: 1

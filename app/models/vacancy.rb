@@ -10,10 +10,11 @@ class Vacancy < ActiveRecord::Base
   scope :in_month, ->(month) { where("date_part('month', created) = ?", month) }
   scope :current_month, -> { in_month(Date.today.month) }
 
-  scope :without_specialization, -> { where("specialization_id IS NULL") }
-  scope :with_specialization, -> { where("specialization_id IS NOT NULL") }
-  scope :with_itdev_specialization, -> { with_specialization.where("specialization_id != ?", Specialization.not_itdev_id) }
-  scope :without_itdev_specialization, -> { with_specialization.where("specialization_id = ?", Specialization.not_itdev_id) }
+  scope :not_classified, -> { where("specialization_id IS NULL") }
+  scope :classified, -> { where("specialization_id IS NOT NULL") }
+  scope :pending_alghorithm_improvement, -> { where("specialization_id = ?", Specialization.pending_alghorithm_improvement_id) }
+  scope :with_itdev_specialization, -> { classified.where("specialization_id != ? and specialization_id != ?", Specialization.not_itdev_id, Specialization.pending_alghorithm_improvement_id) }
+  scope :with_not_itdev_specialization, -> { where("specialization_id = ?", Specialization.not_itdev_id) }
 
   def self.years
     Vacancy.minimum("created").year..Vacancy.maximum("created").year
@@ -96,19 +97,16 @@ class Vacancy < ActiveRecord::Base
     external_logger.info "sucessefully finished"
   end
 
-  def self.classify_all
-    specs = Specialization.sorted
-    without_specialization.find_each(batch_size: 1000) do |vacancy|
-      logger.info "Finding spec for vacancy #{vacancy.id} #{vacancy.name}"
-      specs.each do |spec|
-        if spec.keywords_array.any? { |keyword| vacancy.name =~ Regexp.new(Regexp.quote(keyword), "i") }
-          logger.info "Vacancy #{vacancy.id} #{vacancy.name} assigned with spec #{spec.name}"
-          vacancy.specialization = spec
-          if !vacancy.save
-            logger.error "error on save #{vacancy}"
-          end
-          break
-        end
+  def self.classify_all(external_logger)
+    external_logger ||= logger
+    default = Specialization.pending_alghorithm_improvement
+    specializations = Specialization.sorted
+    not_classified.find_each(batch_size: 1000) do |vacancy|
+      external_logger.info "Finding spec for vacancy #{vacancy.id} #{vacancy.name}"
+      Specialization.classify(vacancy, specializations, default)
+      external_logger.info "Vacancy #{vacancy.id} assigned with spec #{vacancy.specialization.name}"
+      unless vacancy.save
+        external_logger.error "error on save #{vacancy.id}"
       end
     end
   end

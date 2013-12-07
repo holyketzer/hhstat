@@ -8,6 +8,7 @@ namespace :hh do
 		logger.info "Pulling is completed"
 		
 		logger.info "Rake classify vacancies..."
+		Vacancy.classify_all(logger)
 		logger.info "Classification completed"
   end
 end

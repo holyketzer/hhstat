@@ -46,8 +46,8 @@ class StatController < ApplicationController
   end
 
   def count_by_class
-    @count = [Vacancy.without_specialization.count, Vacancy.with_itdev_specialization.count, Vacancy.without_itdev_specialization.count]
-    @labels = ['Не определено', 'IT разработка', 'Не IT разработка']
+    @count = [Vacancy.pending_alghorithm_improvement.count, Vacancy.with_itdev_specialization.count, Vacancy.with_not_itdev_specialization.count]
+    @labels = ['Пока не определено', 'IT разработка', 'Не IT разработка']
   end
 
   private
