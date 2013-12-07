@@ -16,13 +16,10 @@ class Currency < ActiveRecord::Base
 	end
 
 	def self.normalize(currency_code, value)
-		if currency_code and value
-			logger.info "#{value}"
+		if currency_code and value			
 			value = value.to_f unless value.is_a? Numeric
-			currency = Currency.find_by_code(currency_code)
-			logger.info "#{value} #{currency.rate}"
-			value /= currency.rate
-			logger.info "#{value} #{currency.rate}"
+			currency = Currency.find_by_code(currency_code)			
+			value /= currency.rate			
 			value
 		else 
 			nil

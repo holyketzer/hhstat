@@ -69,30 +69,31 @@ class Vacancy < ActiveRecord::Base
     end
   end
 
-  def self.parse_latest
+  def self.parse_latest(external_logger)
+    external_logger ||= logger
     per_page = 100
     page = 0
     query = "https://api.hh.ru/vacancies?specialization=1.221&per_page=#{per_page}&page=%s"    
     while true
-      logger.info ">> try to get #{query % page}"
+      external_logger.info ">> try to get #{query % page}"
       response = RestClient.get query % page
       if response.code == 200
         arr = JSON.parse(response.to_s)
         arr["items"].each do |data|
           new_vacancy = Vacancy.parse(data)
           if !new_vacancy.save                
-            logger.error "error on parse request"
+            external_logger.error "error on parse request"
           end
         end
         page += 1
-        logger.info ">> total pages count = #{arr["pages"].to_i}"
+        external_logger.info ">> next page = #{page}/#{arr["pages"].to_i}"
         break if page >= arr["pages"].to_i
       else
-        logger.error "error on get request"
+        external_logger.error "error on get request"
       end
       sleep 5 
     end    
-    logger.info "sucessefully finished"
+    external_logger.info "sucessefully finished"
   end
 
   def self.classify_all
