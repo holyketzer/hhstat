@@ -70,7 +70,7 @@ class Vacancy < ActiveRecord::Base
     end
   end
 
-  def self.parse_latest(external_logger)
+  def self.parse_latest(external_logger = nil)
     external_logger ||= logger
     per_page = 100
     page = 0
@@ -97,7 +97,7 @@ class Vacancy < ActiveRecord::Base
     external_logger.info "sucessefully finished"
   end
 
-  def self.classify_all(external_logger)
+  def self.classify_all(external_logger = nil)
     external_logger ||= logger
     default = Specialization.pending_alghorithm_improvement
     specializations = Specialization.sorted

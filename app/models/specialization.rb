@@ -4,7 +4,7 @@ class Specialization < ActiveRecord::Base
   scope :sorted, -> { order("priority") }
 
   def self.not_itdev
-    select(:id).find_by("priority = -1")
+    find_by("priority = -1")
   end
 
   def self.not_itdev_id
@@ -12,7 +12,7 @@ class Specialization < ActiveRecord::Base
   end
 
   def self.pending_alghorithm_improvement
-  	select(:id).find_by("priority = -2")
+  	find_by("priority = -2")
   end
 
   def self.pending_alghorithm_improvement_id
