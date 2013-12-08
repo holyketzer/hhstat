@@ -3,6 +3,7 @@ require 'test_helper'
 class SpecializationsControllerTest < ActionController::TestCase
   setup do
     @specialization = specializations(:one)
+    sign_in users(:admin)
   end
 
   test "should get index" do

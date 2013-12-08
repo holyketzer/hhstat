@@ -1,5 +1,6 @@
 class VacanciesController < ApplicationController
   before_action :set_vacancy, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /vacancies
   # GET /vacancies.json
@@ -13,8 +14,7 @@ class VacanciesController < ApplicationController
   end
 
   # GET /vacancies/new
-  def new
-    @vacancy = Vacancy.new
+  def new    
   end
 
   # GET /vacancies/1/edit
@@ -23,9 +23,7 @@ class VacanciesController < ApplicationController
 
   # POST /vacancies
   # POST /vacancies.json
-  def create
-    @vacancy = Vacancy.new(vacancy_params)
-
+  def create    
     respond_to do |format|
       if @vacancy.save
         format.html { redirect_to @vacancy, notice: 'Vacancy was successfully created.' }

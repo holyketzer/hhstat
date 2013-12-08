@@ -3,6 +3,7 @@ require 'test_helper'
 class VacanciesControllerTest < ActionController::TestCase
   setup do
     @vacancy = vacancies(:one)
+    sign_in users(:admin)
   end
 
   test "should get index" do

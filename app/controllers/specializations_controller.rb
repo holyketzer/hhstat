@@ -1,5 +1,6 @@
 class SpecializationsController < ApplicationController
   before_action :set_specialization, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /specializations
   # GET /specializations.json
@@ -13,8 +14,7 @@ class SpecializationsController < ApplicationController
   end
 
   # GET /specializations/new
-  def new
-    @specialization = Specialization.new
+  def new    
   end
 
   # GET /specializations/1/edit
@@ -24,8 +24,6 @@ class SpecializationsController < ApplicationController
   # POST /specializations
   # POST /specializations.json
   def create
-    @specialization = Specialization.new(specialization_params)
-
     respond_to do |format|
       if @specialization.save
         format.html { redirect_to @specialization, notice: 'Specialization was successfully created.' }

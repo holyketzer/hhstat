@@ -9,3 +9,6 @@ one:
 #
 two:
   email: her@mail.com
+
+admin:
+  email: admin@hhstat.com

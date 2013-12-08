@@ -3,6 +3,7 @@ require 'test_helper'
 class CurrenciesControllerTest < ActionController::TestCase
   setup do
     @currency = currencies(:one)
+    sign_in users(:admin)
   end
 
   test "should get index" do

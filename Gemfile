@@ -53,3 +53,4 @@ gem 'whenever', :require => false
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
+gem "cancan"

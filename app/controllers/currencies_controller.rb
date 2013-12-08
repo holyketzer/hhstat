@@ -1,10 +1,10 @@
 class CurrenciesController < ApplicationController
   before_action :set_currency, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource 
 
   # GET /currencies
   # GET /currencies.json
-  def index
-    @currencies = Currency.all
+  def index    
   end
 
   # GET /currencies/1
@@ -13,8 +13,7 @@ class CurrenciesController < ApplicationController
   end
 
   # GET /currencies/new
-  def new
-    @currency = Currency.new
+  def new    
   end
 
   # GET /currencies/1/edit
@@ -23,9 +22,7 @@ class CurrenciesController < ApplicationController
 
   # POST /currencies
   # POST /currencies.json
-  def create
-    @currency = Currency.new(currency_params)
-
+  def create    
     respond_to do |format|
       if @currency.save
         format.html { redirect_to @currency, notice: 'Currency was successfully created.' }
