@@ -12,3 +12,4 @@ two:
 
 admin:
   email: admin@hhstat.com
+  is_admin: true

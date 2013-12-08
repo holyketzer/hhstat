@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-   def admin?
-   	not email.empty?
-   end
+  def admin?
+    is_admin
+  end
 end
