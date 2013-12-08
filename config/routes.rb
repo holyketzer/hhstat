@@ -1,4 +1,7 @@
 Hhstat::Application.routes.draw do
+  #devise_for :users
+  devise_for :users, :path_names => { :sign_in => 'login', :sign_out => 'logout', :sign_up => 'signup' }
+  
   resources :specializations
 
   get "vacancy_count_by_month/:year", to: 'stat#count_by_month_in'

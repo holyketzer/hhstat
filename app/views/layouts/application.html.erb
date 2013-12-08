@@ -8,7 +8,18 @@
 </head>
 <body>
 <div>
-	<%= link_to "hhstat", :controller => "welcomes", :action => "index" %>
+	<%= link_to "hhstat", root_path %>
+</div>
+<div>
+	<p class="notice"><%= notice %></p>
+  <p class="alert"><%= alert %></p>
+</div>
+<div class="user_bar">
+	<% if user_signed_in? %>
+	  <strong><%= current_user.email %></strong>
+	  <%= link_to 'Профиль', edit_user_registration_path %> |
+	  <%= link_to 'Выход', destroy_user_session_path, method: :delete %>
+	<% end %>
 </div>
 <%= yield %>
 
