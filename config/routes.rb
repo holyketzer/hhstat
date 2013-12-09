@@ -20,8 +20,6 @@ Hhstat::Application.routes.draw do
     end
   end
 
-  resources :welcomes
-
   resources :currencies do
     collection do
       get 'parse'
@@ -33,6 +31,8 @@ Hhstat::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   root 'welcomes#index'
+
+  get "supermaster", to: 'admin#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

@@ -7,8 +7,9 @@
 one:
   email: her@mail.ru
 #
-two:
+user:
   email: her@mail.com
+  is_admin: false
 
 admin:
   email: admin@hhstat.com

@@ -8,7 +8,10 @@
 </head>
 <body>
 <div>
-	<%= link_to "hhstat", root_path %>
+	<%= link_to "Главная", root_path %>
+	<% if user_signed_in? and current_user.admin? %>
+		<%= link_to "Управление", :controller => "admin" %>
+	<% end %>
 </div>
 <div>
 	<p class="notice"><%= notice %></p>
