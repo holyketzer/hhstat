@@ -53,4 +53,6 @@ gem 'whenever', :require => false
 # gem 'debugger', group: [:development, :test]
 
 gem 'devise'
-gem "cancan"
+gem 'cancan'
+
+gem 'twitter-bootstrap-rails'
