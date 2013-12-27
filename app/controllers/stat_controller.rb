@@ -1,8 +1,11 @@
 class StatController < ApplicationController
   include StatHelper
 
+  before_filter do
+    @year = params.has_key?(:year) ? params[:year].to_i : Date.today.year    
+  end
+
   def count_by_month_in
-  	@year = params[:year].to_i || Date.today.year
   	data = get_count_by_month_in(@year)
   	if data.any?
   		@months = '"' + data.map { |a| Date::MONTHNAMES[a.month] }.inject { |s,a| s + '", "' + a } + '"'
@@ -11,8 +14,7 @@ class StatController < ApplicationController
 	  @years = Vacancy.years
   end
 
-  def salary_distribution_in
-  	@year = params[:year].to_i || Date.today.year
+  def salary_distribution_in  	
   	data = get_salary_distribution_in(@year)
   	if data.any?
   		@salaries = '"' + data.map { |a| a.salary.to_i.to_s }.inject { |s,a| s + '", "' + a } + '"'
@@ -53,6 +55,6 @@ class StatController < ApplicationController
   private
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params
-      params.permit(:year)
+      params.permit(:year)            
     end
 end

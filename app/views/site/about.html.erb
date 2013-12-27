@@ -1,0 +1,47 @@
+<div id="carousel-cats" class="carousel slide" data-ride="carousel">  
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <% (1..5).each do |i| %>
+      <% if i == 1 %>
+        <div class="item active">
+      <% else %>
+        <div class="item">
+      <% end %>
+        <%= image_tag "cat-#{i}.jpg", size: '497x330', class: 'center-block' %>
+      </div>
+    <% end %>    
+  </div>
+
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-cats" data-slide="prev">
+    <i class="fa fa-chevron-left fa-lg carousel-nav"></i>
+  </a>
+  <a class="right carousel-control" href="#carousel-cats" data-slide="next">
+    <i class="fa fa-chevron-right fa-lg carousel-nav"></i>
+  </a>
+</div>
+
+<div class='text-center'>
+  <p>
+    Александр Емельянов - 
+    <i class="fa fa-desktop fa-lg"></i>
+    <i class="fa fa-code fa-lg"></i>
+    <i class="fa fa-cogs fa-lg"></i>       
+  </p>
+  <p>
+    Сергей Атрощенков - 
+    <i class="fa fa-rocket fa-lg"></i>
+    <i class="fa fa-bug fa-lg"></i>
+    <i class="fa fa-bullhorn fa-lg"></i>    
+  </p>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function () {
+    $('.carousel').carousel({
+        interval: 3000
+    });
+
+    $('.carousel').carousel('cycle');
+});
+</script>  

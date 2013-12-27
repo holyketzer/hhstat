@@ -4,12 +4,13 @@ Hhstat::Application.routes.draw do
   
   resources :specializations
 
-  get "vacancy_count_by_month/:year", to: 'stat#count_by_month_in'
-  get "salary_distribution_in/:year", to: 'stat#salary_distribution_in'
-  get "vacancy_count_by_year", to: 'stat#count_by_year'
-  get "vacancy_count_by_month", to: 'stat#count_by_month'
-  get "vacancy_count_by_specialization", to: 'stat#count_by_specialization'
-  get "vacancy_count_by_class", to: 'stat#count_by_class'
+  get 'it/vacancy-count-by-month-in/(:year)', to: 'stat#count_by_month_in'  
+  get 'it/vacancy-count-by-year', to: 'stat#count_by_year'
+  get 'it/vacancy-count-by-month', to: 'stat#count_by_month'
+  get 'it/vacancy-count-by-specialization', to: 'stat#count_by_specialization'
+  get 'it/vacancy-count-by-class', to: 'stat#count_by_class'
+
+  get 'it/salary-distribution-in/(:year)', to: 'stat#salary_distribution_in'
 
   resources :vacancies do
     member do
@@ -30,9 +31,10 @@ Hhstat::Application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'welcomes#index'
+  root 'site#index'
+  get 'about', to: 'site#about'
 
-  get "supermaster", to: 'admin#index'
+  get 'supermaster', to: 'admin#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
