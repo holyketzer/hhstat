@@ -7,9 +7,11 @@ class StatController < ApplicationController
 
   def count_by_month_in
   	data = get_count_by_month_in(@year)
-  	if data.any?
-  		@months = '"' + data.map { |a| Date::MONTHNAMES[a.month] }.inject { |s,a| s + '", "' + a } + '"'
-		  @values = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
+  	if data.any?  		
+		  @values = data.map { |a| a.count }
+
+      month_names = I18n.t(:'date.standalone_month_names').compact
+      @labels = data.map { |a| month_names[a.month-1] }
 	  end
 	  @years = Vacancy.years
   end
@@ -26,16 +28,19 @@ class StatController < ApplicationController
   def count_by_year
     data = get_count_by_year
     if data.any?
-      @count = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
-      @years = data.map { |a| a.year.to_i }.inject { |s,a| "#{s}, #{a}"}
+      @values = data.map { |a| a.count }
+      @labels = data.map { |a| a.year }
     end
   end
 
   def count_by_month
     data = get_count_by_month
     if data.any?
-      @count = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
-      @months = '"' + data.map { |a| Date::MONTHNAMES[a.month] }.inject { |s,a| s + '", "' + a } + '"'
+      @years = Vacancy.years
+      @values = data.map { |a| a.count }
+      
+      month_names = I18n.t(:'date.standalone_month_names').compact
+      @labels = data.map { |a| month_names[a.month-1] }
     end
   end
 
@@ -48,8 +53,7 @@ class StatController < ApplicationController
   end
 
   def count_by_class
-    @count = [Vacancy.pending_alghorithm_improvement.count, Vacancy.with_itdev_specialization.count, Vacancy.with_not_itdev_specialization.count]
-    @labels = ['Пока не определено', 'IT разработка', 'Не IT разработка']
+    @values = [Vacancy.pending_alghorithm_improvement.count, Vacancy.with_itdev_specialization.count, Vacancy.with_not_itdev_specialization.count]    
   end
 
   private

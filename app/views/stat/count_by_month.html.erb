@@ -1,27 +1,8 @@
-<h1>Vacancy count per month</h1>
-
-<div>
-  <canvas id="allMonthsTimeChart"></canvas>
-</div>
-
-<% if @count %>
-	<% c = [151,87,205].shuffle! %>
-	<%= javascript_tag do %>
-	  var data = {
-			labels : [<%= @months.html_safe %>],
-			datasets : [
-				{
-					fillColor : "rgba(<%= c[0] %>, <%= c[1] %>, <%= c[2] %>,0.5)",
-					strokeColor : "rgba(151,187,205,1)",
-					data : [<%= @count %>]
-				}
-			]
-		}
-		var ctx = $("#allMonthsTimeChart").get(0).getContext("2d")
-		ctx.canvas.width  = window.innerWidth - 100;
-		ctx.canvas.height = window.innerHeight - 150;
-		var chart = new Chart(ctx).Bar(data);
-	<% end %>
-<% else %>
-	<div>No data for this period</div>
-<% end %>
+<% @years ||= [] %>
+<% if @years.size > 1
+  years = " с #{@years.first} по #{@years.last}"
+elsif @years.size == 1
+  years = " в #{@years.first}"
+end 
+years ||= '' %>
+<%= render partial: "shared/highchart", locals: { header: 'Количество вакансий по месяцам за все годы' + years, label: 'Количество вакансий' } %>

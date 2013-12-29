@@ -57,3 +57,4 @@ gem 'cancan'
 
 gem 'twitter-bootstrap-rails'
 gem "font-awesome-rails"
+gem 'russian', '~> 0.6.0'

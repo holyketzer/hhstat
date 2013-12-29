@@ -1,0 +1,25 @@
+<div>
+  <canvas id="vacancyChart"></canvas>
+</div>
+
+<% if @values && @labels %>
+  <% c = [151,87,205].shuffle! %>
+  <%= javascript_tag do %>
+    var data = {
+      labels : <%= @labels.inspect.html_safe %>,
+      datasets : [
+        {
+          fillColor : "rgba(<%= c[0] %>, <%= c[1] %>, <%= c[2] %>,0.5)",
+          strokeColor : "rgba(151,187,205,1)",
+          data : <%= @values.inspect.html_safe %>
+        }
+      ]
+    }
+    var ctx = $("#vacancyChart").get(0).getContext("2d")
+    ctx.canvas.width  = window.innerWidth - 50;
+    ctx.canvas.height = window.innerHeight - 150;
+    var chart = new Chart(ctx).Bar(data, { scaleOverride : true, scaleStartValue : 0, scaleSteps: 20, scaleStepWidth : 10000,  animation : true });
+  <% end %>
+<% else %>
+  <div>Нет данных</div>
+<% end %>

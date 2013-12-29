@@ -1,34 +1,14 @@
-<h1>Vacancy couny per month in <%= @year %></h1>
+<%= render partial: "shared/highchart", locals: { header: "Количество вакансий по месяцам за #{@year} год", label: 'Количество вакансий' } %>
 
-<div>
-	<div>See another years</div>
-	<% @years.each do |year| %>
-		<%= link_to "#{year}", :controller => "stat", :action => "count_by_month_in", :year => year %>
-	<% end %>
+<div class='text-center'>
+	<h3>Другие годы</h3>
+	<div class="btn-group">		
+    <% @years.each do |year| %>
+      <% if @year== year %>
+        <span class='btn btn-primary disabled'><%= year %></span>
+      <% else %>
+        <%= link_item_to "#{year}", { :controller => "stat", :action => "count_by_month_in", :year => year }, class: 'btn' %>
+      <% end %>
+    <% end %>	  
+  </div>
 </div>
-
-<div>
-  <canvas id="currentYearTimeChart"></canvas>
-</div>
-
-<% if @months %>
-	<% c = [151,87,205].shuffle! %>
-	<%= javascript_tag do %>
-	  var data = {
-			labels : [<%= @months.html_safe %>],
-			datasets : [
-				{
-					fillColor : "rgba(<%= c[0] %>, <%= c[1] %>, <%= c[2] %>,0.5)",
-					strokeColor : "rgba(151,187,205,1)",
-					data : [<%= @values %>]
-				}
-			]
-		}
-		var ctx = $("#currentYearTimeChart").get(0).getContext("2d")
-		ctx.canvas.width  = window.innerWidth - 100;
-		ctx.canvas.height = window.innerHeight - 150;
-		var chart = new Chart(ctx).Bar(data);
-	<% end %>
-<% else %>
-	<div>No data for this period</div>
-<% end %>
