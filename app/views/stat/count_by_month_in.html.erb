@@ -1,14 +1,3 @@
 <%= render partial: "shared/highchart", locals: { header: "Количество вакансий по месяцам за #{@year} год", label: 'Количество вакансий' } %>
 
-<div class='text-center'>
-	<h3>Другие годы</h3>
-	<div class="btn-group">		
-    <% @years.each do |year| %>
-      <% if @year== year %>
-        <span class='btn btn-primary disabled'><%= year %></span>
-      <% else %>
-        <%= link_item_to "#{year}", { :controller => "stat", :action => "count_by_month_in", :year => year }, class: 'btn' %>
-      <% end %>
-    <% end %>	  
-  </div>
-</div>
+<%= render partial: "shared/year_links", locals: { path: { :controller => "stat", :action => "count_by_month_in" } } %>

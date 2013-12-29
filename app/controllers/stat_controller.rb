@@ -2,7 +2,7 @@ class StatController < ApplicationController
   include StatHelper
 
   before_filter do
-    @year = params.has_key?(:year) ? params[:year].to_i : Date.today.year    
+    @year = params.has_key?(:year) ? params[:year].to_i : Date.today.year
   end
 
   def count_by_month_in
@@ -19,8 +19,8 @@ class StatController < ApplicationController
   def salary_distribution_in  	
   	data = get_salary_distribution_in(@year)
   	if data.any?
-  		@salaries = '"' + data.map { |a| a.salary.to_i.to_s }.inject { |s,a| s + '", "' + a } + '"'
-		  @values = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
+  		@labels = data.map { |a| a.salary.to_i }
+		  @values = data.map { |a| a.count }
   	end
   	@years = Vacancy.years
   end
@@ -47,8 +47,8 @@ class StatController < ApplicationController
   def count_by_specialization
     data = get_count_by_specialization
     if data.any?
-      @count = data.map { |a| a.count }.inject { |s,a| "#{s}, #{a}" }
-      @specializations = '"' + data.map { |a| a.specialization.name }.inject { |s,a| s + '", "' + a } + '"'
+      @values = data.map { |a| a.count }
+      @labels = data.map { |a| a.specialization.name }
     end
   end
 

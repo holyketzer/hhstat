@@ -7,8 +7,16 @@
   */
 
  .navbar-static-top { padding-bottom: 20px; }
+ .navbar-static-bottom { 
+  margin-bottom: 5px; 
+  margin-left: 5px; 
+  margin-right: 5px; 
+}
  
- footer { padding-top: 20px; }
+footer { 
+  padding-top: 20px; 
+  padding-bottom: 5px; 
+}
 
 .center-block {
   display: block;
@@ -19,4 +27,8 @@
 .carousel-nav {
   font-size: 28px;
   vertical-align: 15%;
+}
+
+.footer-inner {
+  padding-top: 10px;
 }

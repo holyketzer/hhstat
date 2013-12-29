@@ -66,20 +66,20 @@
     <% end %>
          
     <div class="container">
-        <div class="row">
-          <div class="span12">
-            <%= bootstrap_flash %>
-            <%= yield %>
-          </div>          
-        </div><!--/row-->
-
-      <footer>
-        <div class='text-center'>
-          <%= link_to 'Snow Cats team', about_path %> © <%= Date.today.year %>
-        </div>
-      </footer>
-
+      <div class="row">
+        <div class="span12">
+          <%= bootstrap_flash %>
+          <%= yield %>
+        </div>          
+      </div><!--/row-->
     </div> <!-- /container -->
-
+    
+    <footer>
+      <%= nav_bar :static => :bottom do %>
+        <div class='footer-inner text-center'>
+          <%= link_to 'Snow Cats Team', about_path %> © <%= Date.today.year %>
+        </div>
+      <% end %>
+    </footer>   
   </body>
 </html>

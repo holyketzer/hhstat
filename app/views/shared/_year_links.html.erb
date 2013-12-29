@@ -1,0 +1,14 @@
+<% path ||= {} %>
+
+<div class='text-center'>
+  <h4>Другие годы</h4>
+  <div class="btn-group">   
+    <% @years.each do |y| %>
+      <% if @year == y %>
+        <span class='btn btn-primary disabled'><%= y %></span>
+      <% else %>
+        <%= link_item_to "#{y}", path.merge({year: y}), class: 'btn' %>
+      <% end %>
+    <% end %>   
+  </div>
+</div>

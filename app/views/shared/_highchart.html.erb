@@ -1,28 +1,43 @@
 <% if @values && @labels %>
-  <div id="container" style="width:100%; height:600px;"></div>
+  <% 
+    chart_type ||= 'column'
+    chart_height ||= '600px'
+  %>
+
+  <div id="container" style="width:100%; height:<%= chart_height %>;"></div>
+  
 
   <%= javascript_tag do %>
         $('#container').highcharts({
             chart: {
-                type: 'column'
+              type: '<%= chart_type %>'
             },
             title: {
-                text: '<%= header %>'
+              text: '<%= header %>',
+              style: { fontSize: '18px' }
             },
             xAxis: {
-                categories: <%= @labels.inspect.html_safe %>
+              categories: <%= @labels.inspect.html_safe %>,
+              labels: { style: { fontSize: '14px' } }   
             },
             yAxis: {
-                title: {
-                    text: '<%= label %>'
-                }
+              title: {
+                  text: '<%= label %>',
+                  style: { fontSize: '16px' }
+              },
+              labels: { style: { fontSize: '14px' } }   
             },
             series: [{
               name: '<%= label %>',
               data: <%= @values.inspect.html_safe %>
-            }]            
+            }],                    
         });
   <% end %>
 <% else %>
-  <div>Нет данных</div>
+  <div class='text-center'>
+    <h3><%= header %></h3>
+    <div class='alert-danger'>
+      <p>Нет данных</p>
+    </div>
+  </div>
 <% end %>
