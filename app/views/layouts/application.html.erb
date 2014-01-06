@@ -41,14 +41,14 @@
     <%= nav_bar :static => :top, :responsive => true, :brand => "Главная" do %>
       <%= menu_group do %>
         <%= drop_down "Количество вакансий" do %>          
-          <%= menu_item_to "По годам", :controller => "stat", :action => "count_by_year" %>
-          <%= menu_item_to "По месяцам", :controller => "stat", :action => "count_by_month" %>
-          <%= menu_item_to "По месяцам в году", :controller => "stat", :action => "count_by_month_in", :year => Date.today.year %>
-          <%= menu_item_to "По специализации", :controller => "stat", :action => "count_by_specialization" %>
-          <%= menu_item_to "Исходные данные", :controller => "stat", :action => "count_by_class" %>
+          <%= menu_item_to "По годам", :controller => "/stat", :action => "count_by_year"  %>
+          <%= menu_item_to "По месяцам", :controller => "/stat", :action => "count_by_month" %>
+          <%= menu_item_to "По месяцам в году", :controller => "/stat", :action => "count_by_month_in", :year => Date.today.year %>
+          <%= menu_item_to "По специализации", :controller => "/stat", :action => "count_by_specialization" %>
+          <%= menu_item_to "Исходные данные", :controller => "/stat", :action => "count_by_class" %>
         <% end %>
         <%= drop_down "Распределение зарплат" do %>          
-          <%= menu_item_to "По годам", :controller => "stat" , :action => "salary_distribution_in", :year => Date.today.year  %>
+          <%= menu_item_to "По годам", :controller => "/stat" , :action => "salary_distribution_in", :year => Date.today.year  %>
         <% end %>        
       <% end %>
 
