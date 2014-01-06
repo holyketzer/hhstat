@@ -8,19 +8,18 @@
   </thead>
 
   <tbody>
-    <%= link_to "Vacancy count by month in", :controller => "stat", :action => "count_by_month_in", :year => Date.today.year %>
-    <br />
-    <%= link_to "Salary distribution", :controller => "stat", :action => "salary_distribution_in", :year => Date.today.year %>
-    <br/>
-    <%= link_to "Vacancy count by year", :controller => "stat", :action => "count_by_year" %>
-    <br/>
-    <%= link_to "Vacancy count by month", :controller => "stat", :action => "count_by_month" %>
-    <br/>
-    <%= link_to "Vacancy count by specialization", :controller => "stat", :action => "count_by_specialization" %>
-    <br/>
-    <%= link_to "Vacancy count by class", :controller => "stat", :action => "count_by_class" %>
-    <br/>
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active"><h4>Количество вакансий</h4></li>
+      <li><%= link_to "По годам", :controller => "/stat", :action => "count_by_year"  %></li>
+      <li><%= link_to "По месяцам", :controller => "/stat", :action => "count_by_month" %></li>
+      <li><%= link_to "По месяцам в году", :controller => "/stat", :action => "count_by_month_in", :year => Date.today.year %></li>
+      <li><%= link_to "По специализации", :controller => "/stat", :action => "count_by_specialization" %></li>
+      <li><%= link_to "Исходные данные", :controller => "/stat", :action => "count_by_class" %></li>
+    </ul>
+        
+    <ul class="nav nav-pills nav-stacked">
+      <li class="active"><h4>Распределение зарплат</h4></li>
+      <li><%= link_to "По годам", :controller => "/stat" , :action => "salary_distribution_in", :year => Date.today.year  %></li>
+    </ul> 
   </tbody>
 </table>
-
-<br>
