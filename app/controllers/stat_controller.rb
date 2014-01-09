@@ -52,7 +52,8 @@ class StatController < ApplicationController
   def salary_distribution_in    
     data = get_salary_distribution_in(@year)
     if data.any?
-      @labels = data.map { |a| a.salary.to_i }
+      @labels = data.map { |a| a.salary.to_i/1000 }.map { |s| "#{s}..#{s+10}k" }
+      @labels[-1] = "> #{@labels[-1].split('.')[0]}k" if @labels.size > 1
       @values = data.map { |a| a.count }
     end
     @years = Vacancy.years

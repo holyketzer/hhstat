@@ -22,7 +22,7 @@ module StatHelper
 		.group("round((salary_to + salary_from)/2, -4)")
 		.order("round((salary_to + salary_from)/2, -4)")
 
-		low = all.take_while { |i| i.count > 1 && i.salary < 150000 }
+		low = all.take_while { |i| i.count > 1 && i.salary < 200000 }
 		hi = all.drop(low.size)
 		if hi.size > 0
 		  hi.first.count = hi.map{ |i| i.count }.inject{|sum, x| sum + x }		
