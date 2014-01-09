@@ -11,6 +11,7 @@ Hhstat::Application.routes.draw do
   get 'it/vacancy-count-by-class', to: 'stat#count_by_class'
 
   get 'it/salary-distribution-in/(:year)', to: 'stat#salary_distribution_in'
+  get 'it/mean-salary-by-specialization-in/(:year)', to: 'stat#mean_salary_by_specialization_in'
 
   resources :vacancies do
     member do

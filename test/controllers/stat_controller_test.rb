@@ -25,4 +25,9 @@ class StatControllerTest < ActionController::TestCase
     get :count_by_specialization
     assert_response :success
   end
+
+  test "should get mean salary by specialization in" do
+    get :mean_salary_by_specialization_in, :year => 2013
+    assert_response :success
+  end
 end

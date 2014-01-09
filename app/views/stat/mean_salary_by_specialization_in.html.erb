@@ -1,0 +1,8 @@
+<%= render partial: "shared/highchart", locals: { 
+  header: "Средняя зарплата по специализации в #{@year} году",
+  label: 'Средняя зарплата',
+  chart_type: 'bar',
+  chart_height: '800px'
+} %>
+
+<%= render partial: "shared/year_links", locals: { path: { :controller => "stat", :action => "mean_salary_by_specialization_in" } } %>
