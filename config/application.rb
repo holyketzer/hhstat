@@ -21,5 +21,7 @@ module Hhstat
     config.i18n.default_locale = :ru
 
     config.i18n.enforce_available_locales = false
+
+    config.action_controller.page_cache_directory = "#{Rails.root.to_s}/public/cache"
   end
 end

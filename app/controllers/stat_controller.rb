@@ -1,6 +1,8 @@
 class StatController < ApplicationController
   include StatHelper
 
+  caches_page :count_by_month_in, :salary_distribution_in, :count_by_year, :count_by_month, :count_by_specialization, :count_by_class
+
   before_filter do
     @year = params.has_key?(:year) ? params[:year].to_i : Date.today.year
   end
