@@ -11,4 +11,8 @@ namespace :hh do
 		Vacancy.classify_all(logger)
 		logger.info "Classification completed"
   end
+
+  task :expire_stat_pages => :environment do
+    Vacancy.expire_stat_pages
+  end
 end

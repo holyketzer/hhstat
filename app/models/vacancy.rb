@@ -109,5 +109,13 @@ class Vacancy < ActiveRecord::Base
         external_logger.error "error on save #{vacancy.id}"
       end
     end
+    expire_stat_pages
+  end
+
+  def self.expire_stat_pages
+    cache_dir = ActionController::Base.page_cache_directory
+    unless cache_dir == "#{Rails.root.to_s}/public"
+      FileUtils.rm_r(Dir.glob(cache_dir + "/*")) rescue Errno::ENOENT
+    end
   end
 end
