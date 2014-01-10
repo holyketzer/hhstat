@@ -1,8 +1,1 @@
-<% @years ||= [] %>
-<% if @years.size > 1
-  years = " с #{@years.first} по #{@years.last}"
-elsif @years.size == 1
-  years = " в #{@years.first}"
-end 
-years ||= '' %>
-<%= render partial: "shared/highchart", locals: { header: 'Количество вакансий по месяцам за все годы' + years, label: 'Количество вакансий' } %>
+<%= render partial: "shared/highchart", locals: { header: 'Количество вакансий по месяцам за все годы' + render('shared/year_interval'), label: 'Количество вакансий' } %>

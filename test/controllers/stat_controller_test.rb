@@ -40,4 +40,9 @@ class StatControllerTest < ActionController::TestCase
     get :specialization_trend_in_for, :year => 2013, :specialization_name => 'C#'
     assert_response :success
   end
+
+  test "should get specialization trend for specialization" do
+    get :specialization_trend_for, :specialization_name => 'C#'
+    assert_response :success
+  end
 end

@@ -63,6 +63,13 @@ module StatHelper
 		.order("date_part('month', created)")
   end
 
+  def get_salary_distribution_for(specialization_id)
+  	Vacancy.where('specialization_id = ?', specialization_id)
+    .select("count(id), date_part('year', created) as year")
+		.group("date_part('year', created)")
+		.order("date_part('year', created)")
+  end
+
   # label helpres
 
   def labels_for_salary_distribution(data)

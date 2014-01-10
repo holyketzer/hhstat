@@ -22,4 +22,14 @@ module ApplicationHelper
     path = url_for args    
     link_to name, path, attributes
   end
+
+  def all_years
+    @years ||= []
+    if @years.size > 1
+      years = " с #{@years.first} по #{@years.last}"
+    elsif @years.size == 1
+      years = " в #{@years.first}"
+    end 
+    years ||= ''
+  end
 end

@@ -66,9 +66,7 @@ class StatController < ApplicationController
   end
 
   def salary_distribution_in_for
-    @specializations = Specialization.ui_sorted.select(:name).map { |s| s.name }
-    @specialization_name ||= @specializations.sample
-    specialization = Specialization.find_by_name(@specialization_name)
+    specialization = load_specializations
     data = get_salary_distribution_in_for(@year, specialization.id)
     if data.any? 
       @values = data.map { |a| a.count }
@@ -80,9 +78,7 @@ class StatController < ApplicationController
   # trends
 
   def specialization_trend_in_for
-    @specializations = Specialization.ui_sorted.select(:name).map { |s| s.name }
-    @specialization_name ||= @specializations.sample
-    specialization = Specialization.find_by_name(@specialization_name)
+    specialization = load_specializations
     data = get_specialization_trend_in_for(@year, specialization.id)
     if data.any? 
       @values = data.map { |a| a.count }
@@ -91,7 +87,23 @@ class StatController < ApplicationController
     @years = Vacancy.years
   end
 
+  def specialization_trend_for
+    specialization = load_specializations
+    data = get_salary_distribution_for(specialization.id)
+    if data.any? 
+      @values = data.map { |a| a.count }
+      @labels = data.map { |a| a.year }
+    end
+    @years = Vacancy.years
+  end
+
   private
+    def load_specializations
+      @specializations = Specialization.ui_sorted.select(:name).map { |s| s.name }
+      @specialization_name ||= @specializations.sample
+      Specialization.find_by_name(@specialization_name)
+    end
+
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params
       params.permit(:year, :specialization_name)            

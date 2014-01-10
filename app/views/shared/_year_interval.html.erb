@@ -1,0 +1,7 @@
+<%= @years ||= [] 
+  if @years.size > 1
+    years = " с #{@years.first} по #{@years.last}"
+  elsif @years.size == 1
+    years = " в #{@years.first}"
+  end 
+  years ||= '' -%>

@@ -12,9 +12,9 @@
       <div class="span4">
         <ul class="nav nav-pills nav-stacked">
           <li class="active"><h4>Количество вакансий</h4></li>
-          <li><%= link_to "По годам", :controller => "/stat", :action => "count_by_year"  %></li>
+          <li><%= link_to "За всё время", :controller => "/stat", :action => "count_by_year"  %></li>
+          <li><%= link_to "По годам", :controller => "/stat", :action => "count_by_month_in", :year => Date.today.year %></li>
           <li><%= link_to "По месяцам", :controller => "/stat", :action => "count_by_month" %></li>
-          <li><%= link_to "По месяцам в году", :controller => "/stat", :action => "count_by_month_in", :year => Date.today.year %></li>
           <li><%= link_to "По специализации", :controller => "/stat", :action => "count_by_specialization" %></li>
           <li><%= link_to "Исходные данные", :controller => "/stat", :action => "count_by_class" %></li>
         </ul>
@@ -32,7 +32,8 @@
       <div class="span4">
         <ul class="nav nav-pills nav-stacked">
           <li class="active"><h4>Тренды</h4></li>
-          <li><%= link_to "Тренд для специализации по годам", :controller => "/stat" , :action => "specialization_trend_in_for", :year => Date.today.year %></li>
+          <li><%= link_to "Для специализации за всё время", :controller => "/stat" , :action => "specialization_trend_for" %></li>
+          <li><%= link_to "Для специализации по годам", :controller => "/stat" , :action => "specialization_trend_in_for", :year => Date.today.year %></li>
         </ul>
       </div>
     </div>
