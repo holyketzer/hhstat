@@ -1,0 +1,5 @@
+<%= render partial: "shared/highchart", locals: { header: "Количество вакансий #{@specialization_name} разработчика за #{@year} год", label: 'Количество вакансий' } %>
+
+<%= render partial: "shared/year_links", locals: { path: { :controller => "stat", :action => "specialization_trend_in_for", :specialization_name => @specialization_name } } %>
+
+<%= render partial: "shared/specialization_links", locals: { path: { :controller => "stat", :action => "specialization_trend_in_for", :year => @year } } %>

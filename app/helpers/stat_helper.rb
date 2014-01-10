@@ -1,18 +1,25 @@
 module StatHelper
 	def get_count_by_month_in(year)
-		Vacancy.with_itdev_specialization.in_year(year).select("count(id),date_part('month', created) as month").group("date_part('month', created)").order("date_part('month', created)")
+		Vacancy.with_itdev_specialization.in_year(year)
+		.select("count(id),date_part('month', created) as month")
+		.group("date_part('month', created)")
+		.order("date_part('month', created)")
 	end
 
 	def get_count_by_year
-		Vacancy.with_itdev_specialization.select("count(id),date_part('year',created) as year").group("date_part('year', created)")
+		Vacancy.with_itdev_specialization.select("count(id),date_part('year',created) as year")
+		.group("date_part('year', created)")
 	end
 
 	def get_count_by_month
-		Vacancy.with_itdev_specialization.select("count(id),date_part('month',created) as month").group("date_part('month', created)")
+		Vacancy.with_itdev_specialization.select("count(id),date_part('month',created) as month")
+		.group("date_part('month', created)")
 	end
 
   def get_count_by_specialization
-    Vacancy.with_itdev_specialization.select("count(id),specialization_id").group("specialization_id").order("count(id) DESC")
+    Vacancy.with_itdev_specialization.select("count(id),specialization_id")
+    .group("specialization_id")
+    .order("count(id) DESC")
   end
 
 	def get_salary_distribution_in(year)
@@ -47,6 +54,15 @@ module StatHelper
 		.order("round((salary_to + salary_from)/2, -4)")
   end
 
+  # trends
+
+  def get_specialization_trend_in_for(year, specialization_id)
+  	Vacancy.in_year(year).where('specialization_id = ?', specialization_id)
+    .select("count(id), date_part('month', created) as month")
+		.group("date_part('month', created)")
+		.order("date_part('month', created)")
+  end
+
   # label helpres
 
   def labels_for_salary_distribution(data)
@@ -55,4 +71,8 @@ module StatHelper
     labels
   end
 
+  def labels_for_months(data)
+    month_names = I18n.t(:'date.standalone_month_names').compact
+    data.map { |a| month_names[a.month-1] }
+  end
 end

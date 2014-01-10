@@ -11,6 +11,6 @@ two:
   priority: -2
 
 three:
-  name: MyString
+  name: 'C#'
   keywords: MyString
   priority: 1
