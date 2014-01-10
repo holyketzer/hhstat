@@ -12,6 +12,7 @@ Hhstat::Application.routes.draw do
 
   get 'it/salary-distribution-in/(:year)', to: 'stat#salary_distribution_in'
   get 'it/mean-salary-by-specialization-in/(:year)', to: 'stat#mean_salary_by_specialization_in'
+  get 'it/salary-distribution-in/(:year)/for/(:specialization_name)', to: 'stat#salary_distribution_in_for', :specialization_name => /.*/
 
   resources :vacancies do
     member do

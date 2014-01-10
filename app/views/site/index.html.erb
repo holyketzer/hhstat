@@ -18,9 +18,10 @@
     </ul>
         
     <ul class="nav nav-pills nav-stacked">
-      <li class="active"><h4>Распределение зарплат</h4></li>
-      <li><%= link_to "По годам", :controller => "/stat" , :action => "salary_distribution_in", :year => Date.today.year  %></li>
-      <li><%= link_to "По специализации", :controller => "/stat" , :action => "mean_salary_by_specialization_in", :year => Date.today.year %></li>
+      <li class="active"><h4>Зарплаты</h4></li>
+      <li><%= link_to "Распределение по годам", :controller => "/stat" , :action => "salary_distribution_in", :year => Date.today.year  %></li>
+      <li><%= link_to "Среднее для специализации по годам", :controller => "/stat" , :action => "mean_salary_by_specialization_in", :year => Date.today.year %></li>
+      <li><%= link_to "Распределение для специализации по годам", :controller => "/stat" , :action => "salary_distribution_in_for", :year => Date.today.year %></li>
     </ul> 
   </tbody>
 </table>

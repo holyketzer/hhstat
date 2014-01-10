@@ -1,0 +1,14 @@
+<% path ||= {} %>
+
+<div class='text-center'>
+  <h4>Специализации</h4>
+  <div class="btn-group">   
+    <% @specializations.each do |s| %>
+      <% if @specialization_name == s %>
+        <span class='btn btn-primary disabled'><%= s %></span>
+      <% else %>
+        <%= link_item_to "#{s}", path.merge({specialization_name: s}), class: 'btn' %>
+      <% end %>
+    <% end %>   
+  </div>
+</div>

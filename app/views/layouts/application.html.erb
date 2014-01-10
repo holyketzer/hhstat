@@ -47,9 +47,10 @@
           <%= menu_item_to "По специализации", :controller => "/stat", :action => "count_by_specialization" %>
           <%= menu_item_to "Исходные данные", :controller => "/stat", :action => "count_by_class" %>
         <% end %>
-        <%= drop_down "Распределение зарплат" do %>          
-          <%= menu_item_to "По годам", :controller => "/stat" , :action => "salary_distribution_in", :year => Date.today.year  %>
-          <%= menu_item_to "По специализации", :controller => "/stat" , :action => "mean_salary_by_specialization_in", :year => Date.today.year %>
+        <%= drop_down "Зарплаты" do %>          
+          <%= menu_item_to "Распределение по годам", :controller => "/stat" , :action => "salary_distribution_in", :year => Date.today.year  %>
+          <%= menu_item_to "Среднее для специализации по годам", :controller => "/stat" , :action => "mean_salary_by_specialization_in", :year => Date.today.year %>
+          <%= menu_item_to "Распределение для специализации по годам", :controller => "/stat" , :action => "salary_distribution_in_for", :year => Date.today.year %>
         <% end %>        
       <% end %>
 

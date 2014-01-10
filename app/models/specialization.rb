@@ -2,6 +2,7 @@ class Specialization < ActiveRecord::Base
 	has_many :vacancies
 
   scope :sorted, -> { order("priority") }
+  scope :ui_sorted, -> { where('priority >= 0').order(:name) }
 
   def self.not_itdev
     find_by("priority = -1")

@@ -1,7 +1,8 @@
 <% if @values && @labels %>
   <% 
     chart_type ||= 'column'
-    chart_height ||= '600px'
+    line_hight = @values.size < 10 ? 50 : 35
+    chart_height ||= "#{line_hight*@values.size}px"
   %>
 
   <div id="container" style="width:100%; height:<%= chart_height %>;"></div>

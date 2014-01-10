@@ -32,3 +32,5 @@ footer {
 .footer-inner {
   padding-top: 10px;
 }
+
+.btn-group { white-space: normal; }

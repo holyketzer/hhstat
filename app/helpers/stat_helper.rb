@@ -38,4 +38,21 @@ module StatHelper
   	  .group("specialization_id")
   	  .order('avg((salary_to + salary_from)/2)')
   end
+
+  def get_salary_distribution_in_for(year, specialization_id)
+    Vacancy.in_year(year).where('specialization_id = ?', specialization_id)
+		.where("salary_to IS NOT NULL and salary_from IS NOT NULL and salary_from > 0 and salary_to > 0")
+		.select("round((salary_to + salary_from)/2, -4) as salary, count(id)")
+		.group("round((salary_to + salary_from)/2, -4)")
+		.order("round((salary_to + salary_from)/2, -4)")
+  end
+
+  # label helpres
+
+  def labels_for_salary_distribution(data)
+    labels = data.map { |a| a.salary.to_i/1000 }.map { |s| "#{s}..#{s+10}k" }
+    labels[-1] = "> #{labels[-1].split('.')[0]}k" if labels.size > 1
+    labels
+  end
+
 end
