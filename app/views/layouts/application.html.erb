@@ -90,7 +90,8 @@
     </footer>   
 
     <% unless user_signed_in? and current_user.admin? %>
-      <%= render partial: "shared/yandex_metrika" %>
+      <%= render "shared/yandex_metrika" %>
+      <%= render "shared/google_analytics" %>
     <% end %>
   </body>
 </html>
