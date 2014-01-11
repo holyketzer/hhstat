@@ -66,7 +66,7 @@
           <%= menu_item 'Выход', destroy_user_session_path, method: :delete %>
         <% end %>
 
-        <% if user_signed_in? and current_user.admin? %>          
+        <% if user_signed_in? and current_user.admin? %>
           <%= menu_item "Управление", supermaster_path, class: 'btn-warning btn-sm', role: "button" %>
         <% end %>
       <% end %>
@@ -88,5 +88,9 @@
         </div>
       <% end %>
     </footer>   
+
+    <% unless user_signed_in? and current_user.admin? %>
+      <%= render partial: "shared/yandex_metrika" %>
+    <% end %>
   </body>
 </html>
