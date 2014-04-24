@@ -1,11 +1,11 @@
 module ApplicationHelper
-	def javascript(*files)
-	  content_for(:head) { javascript_include_tag(*files) }
-	end
+  def javascript(*files)
+    content_for(:head) { javascript_include_tag(*files) }
+  end
 
-	def stylesheet(*files)
-	  content_for(:head) { stylesheet_link_tag(*files) }
-	end
+  def stylesheet(*files)
+    content_for(:head) { stylesheet_link_tag(*files) }
+  end
 
   def class_for_current_path(path)
     'active' if current_page?(path)
@@ -19,7 +19,7 @@ module ApplicationHelper
   end
 
   def link_item_to(name=nil, args, attributes)
-    path = url_for args    
+    path = url_for args
     link_to name, path, attributes
   end
 
@@ -29,7 +29,7 @@ module ApplicationHelper
       years = " с #{@years.first} по #{@years.last}"
     elsif @years.size == 1
       years = " в #{@years.first}"
-    end 
+    end
     years ||= ''
   end
 end

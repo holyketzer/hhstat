@@ -1,5 +1,5 @@
 class Specialization < ActiveRecord::Base
-	has_many :vacancies
+  has_many :vacancies
 
   scope :sorted, -> { order("priority") }
   scope :ui_sorted, -> { where('priority >= 0').order(:name) }
@@ -13,11 +13,11 @@ class Specialization < ActiveRecord::Base
   end
 
   def self.pending_alghorithm_improvement
-  	find_by("priority = -2")
+    find_by("priority = -2")
   end
 
   def self.pending_alghorithm_improvement_id
-  	pending_alghorithm_improvement.id
+    pending_alghorithm_improvement.id
   end
 
   def keywords_array
@@ -25,12 +25,12 @@ class Specialization < ActiveRecord::Base
   end
 
   def self.classify(vacancy, specializations, default)
-  	vacancy.specialization = default
+    vacancy.specialization = default
     specializations.each do |spec|
-      if spec.keywords_array.any? { |keyword| vacancy.name =~ Regexp.new(Regexp.quote(keyword), "i") }        
-        vacancy.specialization = spec                    
+      if spec.keywords_array.any? { |keyword| vacancy.name =~ Regexp.new(Regexp.quote(keyword), "i") }
+        vacancy.specialization = spec
         break
-      end      
-    end    
+      end
+    end
   end
 end

@@ -9,12 +9,12 @@ class StatController < ApplicationController
   end
 
   def count_by_month_in
-  	data = get_count_by_month_in(@year)
-  	if data.any?  		
-		  @values = data.map { |a| a.count }
+    data = get_count_by_month_in(@year)
+    if data.any?
+      @values = data.map { |a| a.count }
       @labels = labels_for_months(data)
-	  end
-	  @years = Vacancy.years
+    end
+    @years = Vacancy.years
   end
 
   def count_by_year
@@ -43,10 +43,10 @@ class StatController < ApplicationController
   end
 
   def count_by_class
-    @values = [Vacancy.pending_alghorithm_improvement.count, Vacancy.with_itdev_specialization.count, Vacancy.with_not_itdev_specialization.count]    
+    @values = [Vacancy.pending_alghorithm_improvement.count, Vacancy.with_itdev_specialization.count, Vacancy.with_not_itdev_specialization.count]
   end
 
-  def salary_distribution_in    
+  def salary_distribution_in
     data = get_salary_distribution_in(@year)
     if data.any?
       @labels = labels_for_salary_distribution(data)
@@ -68,7 +68,7 @@ class StatController < ApplicationController
   def salary_distribution_in_for
     specialization = load_specializations
     data = get_salary_distribution_in_for(@year, specialization.id)
-    if data.any? 
+    if data.any?
       @values = data.map { |a| a.count }
       @labels = labels_for_salary_distribution(data)
     end
@@ -80,7 +80,7 @@ class StatController < ApplicationController
   def specialization_trend_in_for
     specialization = load_specializations
     data = get_specialization_trend_in_for(@year, specialization.id)
-    if data.any? 
+    if data.any?
       @values = data.map { |a| a.count }
       @labels = labels_for_months(data)
     end
@@ -90,7 +90,7 @@ class StatController < ApplicationController
   def specialization_trend_for
     specialization = load_specializations
     data = get_salary_distribution_for(specialization.id)
-    if data.any? 
+    if data.any?
       @values = data.map { |a| a.count }
       @labels = data.map { |a| a.year }
     end
@@ -106,6 +106,6 @@ class StatController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def vacancy_params
-      params.permit(:year, :specialization_name)            
+      params.permit(:year, :specialization_name)
     end
 end
